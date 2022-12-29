@@ -20,4 +20,23 @@ public void createCategory(Category category){
 public List<Category> getAllCategories(){
     return categoryRepository.findAll();
 }
+public Category updateCategory(String categoryName, Category updatedCategory) {
+
+    Category category=categoryRepository.findByCategoryName(categoryName);
+    category.setCategoryName(updatedCategory.getCategoryName());
+    category.setDescription(updatedCategory.getDescription());
+    category.setImageUrl(updatedCategory.getImageUrl());
+    categoryRepository.save(category);
+    return category;
+    }
+
+    public boolean findByCategoryName(String categoryName) {
+
+    if(categoryRepository.findByCategoryName(categoryName)==null){
+        return false;
+    }else{
+        return true;
+    }
+
+    }
 }
