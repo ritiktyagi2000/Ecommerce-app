@@ -10,7 +10,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
+    @Column(unique=true)
     private @NotNull String name;
     private @NotNull String imageUrl;
     private @NotNull String description;

@@ -1,9 +1,11 @@
 package com.ecommerce.dto;
 
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 public class ProductDto {
-    private @NotNull String name;
+
+    private @NotNull  String name;
     private @NotNull String imageUrl;
     private @NotNull String description;
     private @NotNull double price;
@@ -57,4 +59,6 @@ public class ProductDto {
         this.categoryId = categoryId;
     }
 
+    public ProductDto() {
+    }
 }
