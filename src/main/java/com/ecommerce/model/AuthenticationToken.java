@@ -2,6 +2,7 @@ package com.ecommerce.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "authentication_token")
@@ -29,6 +30,12 @@ public class AuthenticationToken {
     }
 
     public AuthenticationToken() {
+    }
+
+    public AuthenticationToken(User user) {
+        this.user = user;
+        this.createdDate=new Date();
+        this.token= UUID.randomUUID().toString();
     }
 
     public Integer getId() {

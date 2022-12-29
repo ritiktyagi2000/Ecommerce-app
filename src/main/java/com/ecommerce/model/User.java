@@ -24,6 +24,8 @@ private String email;
 @Column(name = "password")
 private String password;
 
+
+
     public Integer getId() {
         return id;
     }

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.NoSuchAlgorithmException;
+
 @RestController
 @RequestMapping("user")
 public class UserController {
@@ -16,7 +18,7 @@ public class UserController {
     UserService userService;
     //sign up
     @PostMapping("/signup")
-    public ResponseDto signup(@RequestBody SignUpDto signUpDto){
+    public ResponseDto signup(@RequestBody SignUpDto signUpDto) throws NoSuchAlgorithmException {
         return userService.signup(signUpDto);
     }
 }
