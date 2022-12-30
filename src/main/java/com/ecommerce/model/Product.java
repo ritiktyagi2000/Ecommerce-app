@@ -1,5 +1,7 @@
 package com.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -10,7 +12,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    @Column(unique=true)
+ //   @Column(unique=true)
     private @NotNull String name;
     private @NotNull String imageUrl;
     private @NotNull String description;
@@ -19,6 +21,7 @@ public class Product {
     //many to one relationship
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @JsonIgnore
     Category category;
 
     public Category getCategory() {
