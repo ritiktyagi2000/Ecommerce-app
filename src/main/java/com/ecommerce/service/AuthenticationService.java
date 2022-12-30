@@ -1,5 +1,6 @@
 package com.ecommerce.service;
 
+import com.ecommerce.exception.AuthenticationFailedException;
 import com.ecommerce.model.AuthenticationToken;
 import com.ecommerce.model.User;
 import com.ecommerce.repository.TokenRepository;
@@ -35,16 +36,16 @@ TokenRepository tokenRepository;
 
     }
 
-    public void authenticate(String token) throws AuthenticationException {
+    public void authenticate(String token) throws AuthenticationFailedException {
         //null check
 
         if(Objects.isNull(token)){
             //throw an exception
-        throw new AuthenticationException("Token is not present");
+        throw new AuthenticationFailedException("Token is not present");
         }
         User user = getUserByToken(token);
         if(Objects.isNull(user)){
-            throw new AuthenticationException("token not valid");
+            throw new AuthenticationFailedException("token not valid");
         }
 
     }

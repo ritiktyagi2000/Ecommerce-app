@@ -1,6 +1,7 @@
 package com.ecommerce.service;
 
 import com.ecommerce.dto.ProductDto;
+import com.ecommerce.exception.ProductNotFoundException;
 import com.ecommerce.model.Category;
 import com.ecommerce.model.Product;
 import com.ecommerce.repository.CategoryRepository;
@@ -14,6 +15,7 @@ import javax.validation.ConstraintViolationException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -95,5 +97,16 @@ public class ProductService {
 
 
 
+    }
+
+    public Product findByProductId(Long productId) throws ProductNotFoundException {
+
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+        if(optionalProduct.isEmpty()){
+
+            throw new ProductNotFoundException("Product Id is invalid "+ productId);
+        }
+        Product product=optionalProduct.get();
+        return product;
     }
 }

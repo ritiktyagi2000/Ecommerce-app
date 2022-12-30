@@ -32,4 +32,8 @@ return response;
     public final ResponseEntity<String>handleAuthenticationFailedException(AuthenticationFailedException exception){
         return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(value = ProductNotFoundException.class)
+    public final ResponseEntity<String>handleProductNotFoundException(ProductNotFoundException exception){
+        return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
+    }
 }
