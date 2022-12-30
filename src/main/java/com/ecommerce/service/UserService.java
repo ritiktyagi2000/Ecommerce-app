@@ -1,7 +1,10 @@
 package com.ecommerce.service;
 
 import com.ecommerce.dto.user.ResponseDto;
+import com.ecommerce.dto.user.SignInDto;
+import com.ecommerce.dto.user.SignInResponseDto;
 import com.ecommerce.dto.user.SignUpDto;
+import com.ecommerce.exception.AuthenticationFailedException;
 import com.ecommerce.exception.CustomException;
 import com.ecommerce.model.AuthenticationToken;
 import com.ecommerce.model.User;
@@ -45,7 +48,6 @@ public class UserService {
         userRepository.save(user);
 
 
-
         //create the token
         final AuthenticationToken token=new AuthenticationToken(user);
         authenticationService.saveToken(token);
@@ -72,5 +74,31 @@ public class UserService {
         // Get complete hashed password in hex format
        String hashedPassword = sb.toString();
         return hashedPassword;
+    }
+
+    public SignInResponseDto signIn(SignInDto signInDto) throws NoSuchAlgorithmException {
+        //find user by email
+        User user = userRepository.findByEmail(signInDto.getEmail());
+        if(Objects.isNull(user)){
+            throw new AuthenticationFailedException("User is not valid. Please Try again");
+        }
+        //hash the password
+        //compare the password in DB
+      try {
+          if (!user.getPassword().equals(hashPassword(signInDto.getPassword()))) {
+              throw new AuthenticationFailedException("Wrong password");
+          }
+      } catch (NoSuchAlgorithmException e) {
+          e.printStackTrace();
+      }
+
+        //if password match
+        AuthenticationToken authenticationToken=authenticationService.getToken(user);
+        //retrieve the token
+        if(Objects.isNull(authenticationToken)){
+            throw new CustomException("Token is not present");
+        }
+        //return response
+            return new SignInResponseDto("success", authenticationToken.getToken());
     }
 }

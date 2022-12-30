@@ -1,6 +1,8 @@
 package com.ecommerce.controller;
 
 import com.ecommerce.dto.user.ResponseDto;
+import com.ecommerce.dto.user.SignInDto;
+import com.ecommerce.dto.user.SignInResponseDto;
 import com.ecommerce.dto.user.SignUpDto;
 import com.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,13 @@ public class UserController {
     UserService userService;
     //sign up
     @PostMapping("/signup")
-    public ResponseDto signup(@RequestBody SignUpDto signUpDto) throws NoSuchAlgorithmException {
+    public ResponseDto signUp(@RequestBody SignUpDto signUpDto) throws NoSuchAlgorithmException {
         return userService.signup(signUpDto);
+    }
+
+    //sign in
+    @PostMapping("/signin")
+    public SignInResponseDto signIn(@RequestBody SignInDto signInDto) throws NoSuchAlgorithmException {
+        return userService.signIn(signInDto);
     }
 }
